@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Zig
+        run: |
+          wget https://ziglang.org/download/0.14.1/zig-x86_64-linux-0.14.1.tar.xz
+          tar xf zig-x86_64-linux-0.14.1.tar.xz
+          echo "$PWD/zig-x86_64-linux-0.14.1" >> $GITHUB_PATH
+
+      - name: Run tests
+        run: zig test src/root.zig
